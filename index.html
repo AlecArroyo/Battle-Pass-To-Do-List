@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pases de Vida · Arcade Level Up</title>
+  
+  <!-- Tipografías Gamer & Neo-Brutalistas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@600;700&family=Press+Start+2P&family=Plus+Jakarta+Sans:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Fondo dinámico arcade -->
+  <div class="arcade-bg-grid"></div>
+
+  <header class="top-header">
+    <div class="logo-wrapper">
+      <div class="logo">
+        <span class="logo-badge">LVL</span>
+        <span class="logo-text">PASES DE <span class="highlight">VIDA</span></span>
+      </div>
+      <p class="tagline">✦ Completa misiones. Acumula XP. Domina tu vida. ✦</p>
+    </div>
+    <div class="header-actions">
+      <button class="btn-ghost" id="btnExport">💾 EXPORTAR DATA</button>
+    </div>
+  </header>
+
+  <div class="app-shell">
+    <aside class="pass-rail">
+      <div class="rail-header">
+        <span class="rail-title">⚙ MIS CARTUCHOS</span>
+        <button class="btn-icon" id="btnNewPass" title="Nuevo pase de batalla">+</button>
+      </div>
+      <div class="rail-list" id="railList"></div>
+    </aside>
+
+    <main class="hud" id="hud"></main>
+  </div>
+
+  <!-- Modal: crear/editar pase con configuración de niveles y recompensas -->
+  <div class="modal-overlay" id="modalPass" hidden>
+    <form class="modal modal-lg" id="formPass">
+      <div class="modal-header">
+        <h2 id="passModalTitle">NUEVO PASE DE BATALLA</h2>
+      </div>
+      <label>Nombre del Ámbito
+        <input type="text" name="name" required maxlength="40" placeholder="Ej. Gimnasio, Estudio, Gym...">
+      </label>
+      <div class="row">
+        <label>Ícono
+          <input type="text" name="icon" maxlength="4" placeholder="💪" value="⭐">
+        </label>
+        <label>Color
+          <input type="color" name="color" value="#ff2a85">
+        </label>
+      </div>
+      <label>Descripción
+        <textarea name="description" maxlength="140" placeholder="¿De qué trata esta aventura?"></textarea>
+      </label>
+      
+      <div class="row">
+        <label>XP Requerida por Nivel
+          <input type="number" name="starsPerLevel" min="1" max="50" value="10">
+        </label>
+        <label>Cantidad Total de Niveles
+          <input type="number" id="inputMaxLevel" name="maxLevel" min="1" max="100" value="20">
+        </label>
+      </div>
+
+      <!-- Editor de Recompensas por Nivel integradas -->
+      <fieldset class="rewards-editor-fieldset">
+        <legend>🎁 PREMIOS / RECOMPENSAS POR NIVEL</legend>
+        <p class="editor-help">Configura los premios que desbloquearás al alcanzar cada nivel:</p>
+        <div class="rewards-editor-list" id="rewardsEditorList">
+          <!-- Se genera dinámicamente según la cantidad de niveles -->
+        </div>
+      </fieldset>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" data-close-modal>CANCELAR</button>
+        <button type="submit" class="btn-primary" id="btnSubmitPass">¡GUARDAR PASE!</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal: crear misión -->
+  <div class="modal-overlay" id="modalMission" hidden>
+    <form class="modal" id="formMission">
+      <div class="modal-header">
+        <h2>NUEVA MISIÓN</h2>
+      </div>
+      <label>Título de la Misión
+        <input type="text" name="title" required maxlength="60" placeholder="Ej. Entrenar Pierna 45 min">
+      </label>
+      <label>Detalles / Recompensa
+        <textarea name="description" maxlength="140" placeholder="Detalles de la quest..."></textarea>
+      </label>
+      <fieldset class="metric-toggle">
+        <legend>Tipo de Misión</legend>
+        <label class="pill">
+          <input type="radio" name="metricType" value="boolean" checked> 
+          <span>Simple (Completar de una)</span>
+        </label>
+        <label class="pill">
+          <input type="radio" name="metricType" value="counter"> 
+          <span>Contador (Avanzar progresivo)</span>
+        </label>
+      </fieldset>
+      <div class="row counter-fields" hidden>
+        <label>Unidad
+          <input type="text" name="unit" placeholder="Ej. km, páginas">
+        </label>
+        <label>Meta
+          <input type="number" name="targetValue" min="1" value="1">
+        </label>
+      </div>
+      <label>Recompensa (Estrellas ★)
+        <input type="number" name="starsValue" min="1" max="10" value="1">
+      </label>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" data-close-modal>CANCELAR</button>
+        <button type="submit" class="btn-primary">¡AGREGAR MISIÓN!</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal rápido: Asignar / Editar Recompensa de Nivel individual -->
+  <div class="modal-overlay" id="modalReward" hidden>
+    <form class="modal" id="formReward">
+      <div class="modal-header">
+        <h2 id="rewardModalTitle">ASIGNAR RECOMPENSA</h2>
+      </div>
+      <input type="hidden" name="level" id="rewardLevelInput">
+      <label>Premio / Recompensa
+        <input type="text" name="name" required maxlength="50" placeholder="Ej. Pizza Night 🍕, Salida al Cine...">
+      </label>
+      <label>Ícono de Recompensa
+        <input type="text" name="icon" maxlength="4" placeholder="🎁" value="🎁">
+      </label>
+      <div class="modal-actions">
+        <button type="button" class="btn-ghost" data-close-modal>CANCELAR</button>
+        <button type="submit" class="btn-primary">¡GUARDAR PREMIO!</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast-layer" id="toastLayer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
