@@ -218,7 +218,6 @@ class LocalStorageAdapter extends StorageAdapter {
 }
 
 class ApiStorageAdapter extends StorageAdapter {
-
   constructor(baseUrl){
     super();
     this.baseUrl = baseUrl;
@@ -279,7 +278,7 @@ function render(){
 function renderRail(){
   const list = document.getElementById('railList');
   if(!state.passes.length){
-    list.innerHTML = `<p class="rail-empty">🎮 Todavía no tienes pases.<br>Crea el primero con el botón "+".</p>`;
+    list.innerHTML = `<p class="rail-empty">🎮 Todavía no tienes pases.<br>Crea el primero con "+".</p>`;
     return;
   }
   list.innerHTML = state.passes.map(p => `
@@ -417,7 +416,7 @@ function renderHud(){
         <h2 class="carousel-title">🏆 PREMIOS DEL PASE DE BATALLA</h2>
         <div class="carousel-nav">
           <button class="btn-icon" data-action="prev-page" ${state.carouselPage === 1 ? 'disabled style="opacity:0.4;"' : ''}>❮</button>
-          <span class="page-indicator">PÁGINA ${state.carouselPage} / ${totalPages}</span>
+          <span class="page-indicator">PÁG ${state.carouselPage} / ${totalPages}</span>
           <button class="btn-icon" data-action="next-page" ${state.carouselPage === totalPages ? 'disabled style="opacity:0.4;"' : ''}>❯</button>
         </div>
       </div>
@@ -428,7 +427,7 @@ function renderHud(){
 
     <section class="missions">
       <div class="missions-header">
-        <h2>MISIONES ACTIVAS <span class="count">${pending.length}</span></h2>
+        <h2>MISIONES <span class="count">${pending.length}</span></h2>
         <button class="btn-primary" data-action="new-mission" data-pass="${pass.id}">+ NUEVA MISIÓN</button>
       </div>
       <div class="mission-grid">
@@ -436,7 +435,7 @@ function renderHud(){
       </div>
 
       ${done.length ? `
-        <div class="missions-header" style="margin-top: 36px;">
+        <div class="missions-header" style="margin-top: 24px;">
           <h2>COMPLETADAS <span class="count" style="background:var(--neon-green);">${done.length}</span></h2>
         </div>
         <div class="mission-grid is-done">
@@ -459,7 +458,7 @@ function celebrateLevelUp(pass){
     <span class="level-toast-icon">${pass.icon}</span>
     <div>
       <strong>¡LEVEL UP! 🚀</strong>
-      <p>${escapeHtml(pass.name)} · Alcanzaste el Nivel ${pass.currentLevel}</p>
+      <p>${escapeHtml(pass.name)} · Nivel ${pass.currentLevel}</p>
     </div>
   `;
   layer.appendChild(toast);
@@ -607,13 +606,11 @@ function renderRewardsEditorList(){
   const listContainer = document.getElementById('rewardsEditorList');
   const totalLevels = Math.min(100, Math.max(1, Number(inputMaxLevel.value) || 20));
   
-  // Mapear recompensas existentes
   const rewardsMap = new Map();
   if(currentEditingPass && currentEditingPass.rewards){
     currentEditingPass.rewards.forEach(r => rewardsMap.set(Number(r.level), r));
   }
 
-  // Preservar valores que el usuario haya escrito en el formulario antes del cambio de niveles
   const currentRows = listContainer.querySelectorAll('.reward-editor-row');
   currentRows.forEach(row => {
     const lvl = Number(row.dataset.level);
@@ -631,7 +628,7 @@ function renderRewardsEditorList(){
       <div class="reward-editor-row" data-level="${lvl}">
         <span class="lvl-tag">LVL ${lvl}</span>
         <input type="text" class="reward-icon-input" placeholder="🎁" value="${escapeHtml(existing.icon || '🎁')}" maxlength="4">
-        <input type="text" class="reward-name-input" placeholder="Premio del nivel ${lvl}..." value="${escapeHtml(existing.name || '')}">
+        <input type="text" class="reward-name-input" placeholder="Premio nivel ${lvl}..." value="${escapeHtml(existing.name || '')}">
       </div>
     `;
   }
@@ -655,7 +652,7 @@ function openPassModal(pass = null){
     formPass.querySelector('[name=starsPerLevel]').value = pass.starsPerLevel;
     inputMaxLevel.value = pass.maxLevel || 20;
     
-    document.getElementById('passModalTitle').textContent = 'EDITAR PASE DE BATALLA';
+    document.getElementById('passModalTitle').textContent = 'EDITAR PASE';
     document.getElementById('btnSubmitPass').textContent = 'GUARDAR CAMBIOS';
   }else{
     delete formPass.dataset.editId;
@@ -702,7 +699,6 @@ formPass.addEventListener('submit', async (e) => {
   e.preventDefault();
   const fd = new FormData(formPass);
   
-  // Extraer lista de recompensas del editor
   const rewardRows = formPass.querySelectorAll('.reward-editor-row');
   const rewards = [];
   rewardRows.forEach(row => {

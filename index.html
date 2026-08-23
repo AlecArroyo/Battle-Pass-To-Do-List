@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
   <title>Pases de Vida · Arcade Level Up</title>
   
   <!-- Tipografías Gamer & Neo-Brutalistas -->
@@ -26,7 +26,7 @@
       <p class="tagline">✦ Completa misiones. Acumula XP. Domina tu vida. ✦</p>
     </div>
     <div class="header-actions">
-      <button class="btn-ghost" id="btnExport">💾 EXPORTAR DATA</button>
+      <button class="btn-ghost" id="btnExport" title="Exportar datos a JSON">💾 EXPORTAR</button>
     </div>
   </header>
 
@@ -64,18 +64,18 @@
       </label>
       
       <div class="row">
-        <label>XP Requerida por Nivel
+        <label>XP por Nivel
           <input type="number" name="starsPerLevel" min="1" max="50" value="10">
         </label>
-        <label>Cantidad Total de Niveles
+        <label>Total Niveles
           <input type="number" id="inputMaxLevel" name="maxLevel" min="1" max="100" value="20">
         </label>
       </div>
 
       <!-- Editor de Recompensas por Nivel integradas -->
       <fieldset class="rewards-editor-fieldset">
-        <legend>🎁 PREMIOS / RECOMPENSAS POR NIVEL</legend>
-        <p class="editor-help">Configura los premios que desbloquearás al alcanzar cada nivel:</p>
+        <legend>🎁 PREMIOS POR NIVEL</legend>
+        <p class="editor-help">Configura los premios que desbloquearás:</p>
         <div class="rewards-editor-list" id="rewardsEditorList">
           <!-- Se genera dinámicamente según la cantidad de niveles -->
         </div>
@@ -97,7 +97,7 @@
       <label>Título de la Misión
         <input type="text" name="title" required maxlength="60" placeholder="Ej. Entrenar Pierna 45 min">
       </label>
-      <label>Detalles / Recompensa
+      <label>Detalles / Descripción
         <textarea name="description" maxlength="140" placeholder="Detalles de la quest..."></textarea>
       </label>
       <fieldset class="metric-toggle">
