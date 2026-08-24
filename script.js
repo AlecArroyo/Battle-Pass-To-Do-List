@@ -2,8 +2,8 @@
    CONFIG
    ===================================================================== */
 const CONFIG = {
-  storageMode: 'local',
-  apiBaseUrl: 'https://localhost:5001/api',
+  storageMode: 'api',
+  apiBaseUrl: 'https://pasesdevida-api-bag0daa3cscjhthb.mexicocentral-01.azurewebsites.net/api',
 };
 
 /* =====================================================================
