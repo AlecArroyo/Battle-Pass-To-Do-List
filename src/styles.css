@@ -1,33 +1,64 @@
 /* =====================================================================
-   ESTILO: GACETA VINTAGE — PRENSA DE BOLSILLO (MOBILE-FIRST)
+   ÍNDICE GENERAL DEL ARCHIVO CSS:
+   ---------------------------------------------------------------------
+   01. VARIABLES DE DISEÑO (PALETA, FUENTES Y TINTAS)
+   02. RESET Y ESTILOS BASE DEL DOCUMENTO
+   03. CABECERA PRINCIPAL (MASTHEAD / GACETA)
+   04. BOTONERÍA DE IMPRENTA
+   05. COLUMNA LATERAL (ÍNDICE / PASS RAIL)
+   06. PORTADA Y ESTADO VACÍO
+   07. TITULAR DE LA SECCIÓN ACTIVA (HEADLINE BLOCK)
+   08. CARTELERA DE PREMIOS (TICKETS Y SELLOS)
+   09. TABLERO DE FORMACIÓN (CASILLAS DE PRIORIDAD 1 A 6)
+   10. TARJETAS DE MISIÓN (ANUNCIOS CLASIFICADOS)
+   11. ZONA DE MISIONES EN ESPERA Y CUMPLIDAS
+   12. HOJAS MODALES / FORMULARIOS (CREAR Y EDITAR)
+   13. SELECTOR DE COLORES PASTEL Y EDITOR DE PREMIOS
+   14. BOLETINES FLOTANTES (NOTIFICACIONES TOAST)
+   15. MODAL CELEBRATORIO DE SUBIDA DE NIVEL (CONFIESTAS)
+   16. MEDIA QUERIES (TABLET Y ESCRITORIO)
+   ===================================================================== */
+
+
+/* =====================================================================
+   01. VARIABLES DE DISEÑO (PALETA, FUENTES Y TINTAS)
    ===================================================================== */
 :root {
+  /* Fondos de papel envejecido */
   --paper: #ede1c4;
   --paper-card: #f6efdd;
   --paper-shade: #ddccA0;
   --paper-deep: #d8c495;
 
+  /* Tintas tipográficas */
   --ink: #241c12;
   --ink-soft: #4a3c28;
   --ink-mut: #7a6b52;
 
+  /* Reglas y bordes de imprenta */
   --rule: #241c12;
   --rule-soft: rgba(36, 28, 18, 0.28);
+  --shadow-ink: rgba(36, 28, 18, 0.32);
 
+  /* Acentos cromáticos */
   --red: #7c2430;
   --red-deep: #5c1a23;
   --green: #3c5734;
   --gold: #9c6f22;
 
-  --shadow-ink: rgba(36, 28, 18, 0.32);
-
+  /* Tipografías vintage */
   --font-display: 'Old Standard TT', Georgia, 'Times New Roman', serif;
   --font-body: 'Vollkorn', Georgia, 'Times New Roman', serif;
   --font-mono: 'Special Elite', 'Courier New', monospace;
 
+  /* Radio de bordes leve para dar aspecto de corte manual */
   --radius: 3px;
 }
 
+
+/* =====================================================================
+   02. RESET Y ESTILOS BASE DEL DOCUMENTO
+   ===================================================================== */
 * {
   box-sizing: border-box;
 }
@@ -43,6 +74,7 @@ body {
   position: relative;
 }
 
+/* Capa de grano de papel periódico aplicada sobre toda la pantalla */
 .paper-texture {
   position: fixed;
   inset: 0;
@@ -63,8 +95,9 @@ button, input, textarea, select {
   color: var(--paper-card);
 }
 
+
 /* =====================================================================
-   1. CABECERA / MASTHEAD
+   03. CABECERA PRINCIPAL (MASTHEAD / GACETA)
    ===================================================================== */
 .masthead {
   position: relative;
@@ -73,6 +106,7 @@ button, input, textarea, select {
   padding: 18px 16px 0;
 }
 
+/* Friso con doble línea típica de portada de periódico */
 .masthead-flag {
   text-align: center;
   border-top: 5px double var(--ink);
@@ -102,6 +136,7 @@ button, input, textarea, select {
   color: var(--ink-soft);
 }
 
+/* Cintillo inferior con fecha, tomo y botón de exportación */
 .masthead-strip {
   display: flex;
   flex-wrap: wrap;
@@ -122,8 +157,9 @@ button, input, textarea, select {
   min-width: 140px;
 }
 
+
 /* =====================================================================
-   2. BOTONES DE IMPRENTA
+   04. BOTONERÍA DE IMPRENTA
    ===================================================================== */
 .btn {
   border: 1px solid var(--ink) !important;
@@ -145,11 +181,13 @@ button, input, textarea, select {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Efecto de pulsación mecánica */
 .btn:active {
   transform: translate(2px, 2px);
   box-shadow: 0px 0px 0px var(--ink);
 }
 
+/* Botón principal (rojo vino) */
 .btn--primary {
   background: var(--red);
   color: var(--paper-card);
@@ -163,6 +201,7 @@ button, input, textarea, select {
   font-size: 12px;
 }
 
+/* Botón de cumplimiento de misión (verde imprenta) */
 .btn--complete {
   background: var(--green);
   color: var(--paper-card);
@@ -172,6 +211,7 @@ button, input, textarea, select {
   font-size: 13px;
 }
 
+/* Botón dorado con pulso para reclamar premios */
 .btn--claim {
   background: var(--gold);
   color: var(--paper-card);
@@ -211,8 +251,9 @@ button, input, textarea, select {
   border-color: var(--red-deep) !important;
 }
 
+
 /* =====================================================================
-   3. ESTRUCTURA / COLUMNA ÍNDICE
+   05. COLUMNA LATERAL (ÍNDICE / PASS RAIL)
    ===================================================================== */
 .broadsheet-grid {
   position: relative;
@@ -274,6 +315,7 @@ button, input, textarea, select {
   width: 100%;
 }
 
+/* Tarjeta / Recorte individual de cada sección en la barra lateral */
 .clip {
   --accent: var(--red);
   display: flex;
@@ -336,6 +378,7 @@ button, input, textarea, select {
   color: var(--ink-soft);
 }
 
+/* Pequeña barra inferior de progreso en cada clip */
 .clip-meter {
   position: absolute;
   left: 0;
@@ -351,8 +394,9 @@ button, input, textarea, select {
   transition: width 0.3s ease;
 }
 
+
 /* =====================================================================
-   4. PORTADA (HUD PRINCIPAL)
+   06. PORTADA Y ESTADO VACÍO
    ===================================================================== */
 .front-page {
   padding: 16px;
@@ -361,6 +405,7 @@ button, input, textarea, select {
   gap: 22px;
 }
 
+/* Pantalla inicial cuando aún no se ha creado ninguna sección */
 .no-edition {
   margin: 24px auto;
   text-align: center;
@@ -393,7 +438,10 @@ button, input, textarea, select {
   margin: 0 0 20px;
 }
 
-/* Titular / sección activa */
+
+/* =====================================================================
+   07. TITULAR DE LA SECCIÓN ACTIVA (HEADLINE BLOCK)
+   ===================================================================== */
 .headline-block {
   --accent: var(--red);
   position: relative;
@@ -445,6 +493,7 @@ button, input, textarea, select {
   color: var(--ink-soft);
 }
 
+/* Letra capitular para la descripción */
 .headline-desc::first-letter {
   font-family: var(--font-display);
   font-size: 2.4em;
@@ -460,6 +509,7 @@ button, input, textarea, select {
   align-self: flex-end;
 }
 
+/* Medidor de circulación (estrellas y casillas de nivel) */
 .circulation {
   margin-top: 16px;
   border-top: 1px dashed var(--rule);
@@ -505,8 +555,9 @@ button, input, textarea, select {
   align-self: flex-end;
 }
 
+
 /* =====================================================================
-   5. CARTELERA DE PREMIOS
+   08. CARTELERA DE PREMIOS (TICKETS Y SELLOS)
    ===================================================================== */
 .prize-board {
   background: var(--paper-card);
@@ -552,6 +603,7 @@ button, input, textarea, select {
   gap: 16px 12px;
 }
 
+/* Boleto con borde dentado clásico */
 .ticket {
   background: var(--paper);
   border: 1px solid var(--rule);
@@ -632,6 +684,7 @@ button, input, textarea, select {
   font-style: italic;
 }
 
+/* Sellos de tinta sobre los tickets */
 .stamp {
   display: inline-block;
   font-family: var(--font-mono);
@@ -658,8 +711,9 @@ button, input, textarea, select {
   color: var(--gold);
 }
 
+
 /* =====================================================================
-   6. TABLERO DE PRIORIDADES (EDITORIAL BOARD & DRAG-AND-DROP)
+   09. TABLERO DE FORMACIÓN (CASILLAS DE PRIORIDAD 1 A 6)
    ===================================================================== */
 .editorial-board {
   background: var(--paper-card);
@@ -703,6 +757,7 @@ button, input, textarea, select {
   gap: 14px;
 }
 
+/* Casilla receptora para Drag & Drop */
 .board-slot {
   background: rgba(36, 28, 18, 0.03);
   border: 2px dashed var(--rule-soft);
@@ -715,6 +770,7 @@ button, input, textarea, select {
   transition: all 0.2s ease;
 }
 
+/* Resaltado cuando una tarjeta es arrastrada sobre la casilla */
 .board-slot.is-dragover {
   border-color: var(--red);
   background: rgba(124, 36, 48, 0.08);
@@ -722,6 +778,7 @@ button, input, textarea, select {
   transform: scale(1.01);
 }
 
+/* Marca de agua de fondo numerada (1 a 6) */
 .board-slot-watermark {
   position: absolute;
   inset: 0;
@@ -759,58 +816,10 @@ button, input, textarea, select {
   margin: 0;
 }
 
+
 /* =====================================================================
-   7. ANUNCIOS / MISIONES & TARJETAS DRAGGABLE
+   10. TARJETAS DE MISIÓN (ANUNCIOS CLASIFICADOS)
    ===================================================================== */
-.classifieds-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.classifieds-head h2 {
-  font-family: var(--font-display);
-  font-size: 19px;
-  margin: 0;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.classifieds-count {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  background: var(--paper);
-  color: var(--ink);
-  padding: 3px 8px;
-  border: 1px solid var(--ink);
-  border-radius: 20px;
-}
-
-.classifieds-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-  margin-bottom: 26px;
-}
-
-.classifieds-grid.unassigned-dropzone {
-  min-height: 120px;
-  padding: 10px;
-  border: 2px dashed transparent;
-  border-radius: var(--radius);
-  transition: all 0.2s ease;
-}
-
-.classifieds-grid.unassigned-dropzone.is-dragover {
-  border-color: var(--gold);
-  background: rgba(156, 111, 34, 0.08);
-}
-
 .ad {
   --accent: var(--red);
   position: relative;
@@ -839,6 +848,7 @@ button, input, textarea, select {
   border-style: dashed;
 }
 
+/* Borde pespunteado interior */
 .ad::before {
   content: '';
   position: absolute;
@@ -857,6 +867,7 @@ button, input, textarea, select {
   text-decoration: line-through;
 }
 
+/* Etiquetas superiores (prioridad y estrellas) */
 .ad-meta-top {
   position: absolute;
   top: -12px;
@@ -881,14 +892,25 @@ button, input, textarea, select {
 
 .ad-tag {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--paper-card);
   background: var(--accent);
-  padding: 6px 12px;
+  padding: 4px 8px;
   border-radius: 4px;
   letter-spacing: 0.5px;
   box-shadow: 1px 1px 0px var(--rule);
+
+  /* 👇 AGREGA ESTO para que el texto y la estrella queden centrados */
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* 👇 Y este tamaño para que la estrella no se desborde */
+.ad-tag .material-symbols-outlined {
+  font-size: 13px;
+  line-height: 1;
 }
 
 .ad-grip {
@@ -919,7 +941,7 @@ button, input, textarea, select {
   line-height: 1.5;
 }
 
-/* Cronómetro vintage de la misión */
+/* Cronómetro vintage de la tarjeta */
 .ad-timer {
   display: flex;
   align-items: center;
@@ -953,6 +975,7 @@ button, input, textarea, select {
   color: var(--gold);
 }
 
+/* Barra de avance para misiones por conteo */
 .ad-progress {
   display: flex;
   flex-direction: column;
@@ -1007,6 +1030,60 @@ button, input, textarea, select {
   z-index: 2;
 }
 
+
+/* =====================================================================
+   11. ZONA DE MISIONES EN ESPERA Y CUMPLIDAS
+   ===================================================================== */
+.classifieds-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.classifieds-head h2 {
+  font-family: var(--font-display);
+  font-size: 19px;
+  margin: 0;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.classifieds-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 3px 8px;
+  border: 1px solid var(--ink);
+  border-radius: 20px;
+}
+
+.classifieds-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+/* Zona donde se pueden soltar tarjetas para desasignarlas */
+.classifieds-grid.unassigned-dropzone {
+  min-height: 120px;
+  padding: 10px;
+  border: 2px dashed transparent;
+  border-radius: var(--radius);
+  transition: all 0.2s ease;
+}
+
+.classifieds-grid.unassigned-dropzone.is-dragover {
+  border-color: var(--gold);
+  background: rgba(156, 111, 34, 0.08);
+}
+
 .classifieds-empty {
   color: var(--ink-mut);
   font-size: 13px;
@@ -1019,8 +1096,9 @@ button, input, textarea, select {
   grid-column: 1 / -1;
 }
 
+
 /* =====================================================================
-   8. FICHAS / MODALES & SELECTOR PASTEL
+   12. HOJAS MODALES / FORMULARIOS (CREAR Y EDITAR)
    ===================================================================== */
 .sheet-overlay {
   position: fixed;
@@ -1117,7 +1195,50 @@ button, input, textarea, select {
   gap: 10px;
 }
 
-/* Selector de 6 colores pastel */
+/* Opciones tipo toggle / radio vintage */
+.choice-toggle {
+  border: 1px solid var(--rule);
+  background: rgba(36,28,18,0.03);
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.choice-toggle legend {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-soft);
+  padding: 0 4px;
+}
+
+.choice {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px !important;
+  font-weight: 400 !important;
+  cursor: pointer;
+  min-height: 34px;
+}
+
+.choice input {
+  accent-color: var(--red);
+  width: 17px;
+  height: 17px;
+}
+
+.sheet-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+
+/* =====================================================================
+   13. SELECTOR DE COLORES PASTEL Y EDITOR DE PREMIOS
+   ===================================================================== */
 .color-palette-selector {
   display: flex;
   gap: 10px;
@@ -1154,7 +1275,7 @@ button, input, textarea, select {
   outline: 2px solid var(--red);
 }
 
-/* Editor de premios */
+/* Editor de lista de recompensas nivel a nivel */
 .prize-editor {
   border: 1px dashed var(--ink);
   background: rgba(36,28,18,0.04);
@@ -1219,47 +1340,9 @@ button, input, textarea, select {
   min-height: 34px !important;
 }
 
-.choice-toggle {
-  border: 1px solid var(--rule);
-  background: rgba(36,28,18,0.03);
-  border-radius: 4px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.choice-toggle legend {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink-soft);
-  padding: 0 4px;
-}
-
-.choice {
-  flex-direction: row !important;
-  align-items: center;
-  gap: 8px !important;
-  font-weight: 400 !important;
-  cursor: pointer;
-  min-height: 34px;
-}
-
-.choice input {
-  accent-color: var(--red);
-  width: 17px;
-  height: 17px;
-}
-
-.sheet-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-top: 6px;
-}
 
 /* =====================================================================
-   9. BOLETINES (NOTIFICACIONES)
+   14. BOLETINES FLOTANTES (NOTIFICACIONES TOAST)
    ===================================================================== */
 .bulletin-layer {
   position: fixed;
@@ -1320,134 +1403,9 @@ button, input, textarea, select {
   font-family: var(--font-body);
 }
 
-/* =====================================================================
-   10. RESPONSIVE (TABLET & ESCRITORIO)
-   ===================================================================== */
-@media (min-width: 640px) {
-  .masthead {
-    padding: 22px 28px 0;
-  }
-
-  .masthead-title {
-    font-size: 44px;
-  }
-
-  .front-page {
-    padding: 22px;
-    gap: 26px;
-  }
-
-  .headline-top {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-
-  .headline-actions {
-    align-self: flex-start;
-  }
-
-  .circulation {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .circulation-ticks {
-    flex: 1;
-  }
-
-  .prize-board-head {
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .prize-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .board-slots-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .classifieds-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .sheet-overlay {
-    align-items: center;
-    padding: 20px;
-  }
-
-  .sheet {
-    max-width: 460px;
-    border-bottom: 1px solid var(--rule);
-    box-shadow: 5px 5px 0px var(--shadow-ink);
-    border-radius: 4px;
-    padding: 26px;
-  }
-
-  .sheet.sheet--lg {
-    max-width: 540px;
-  }
-
-  .bulletin-layer {
-    left: auto;
-    right: 26px;
-    bottom: 26px;
-    max-width: 360px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .broadsheet-grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-  }
-
-  .index-column {
-    border-right: 1px solid var(--rule);
-    border-bottom: none;
-    padding: 22px 16px;
-    gap: 16px;
-  }
-
-  .index-list {
-    flex-direction: column;
-    overflow-x: visible;
-    padding-bottom: 0;
-  }
-
-  .clip {
-    min-width: unset;
-    width: 100%;
-  }
-
-  .clip:hover {
-    transform: translate(-1px, -1px);
-  }
-
-  .front-page {
-    padding: 30px;
-  }
-
-  .prize-grid {
-    grid-template-columns: repeat(5, 1fr);
-  }
-
-  .board-slots-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .classifieds-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  }
-}
 
 /* =====================================================================
-   11. MODAL CELEBRATORIO DE SUBIDA DE NIVEL (LEVEL UP)
+   15. MODAL CELEBRATORIO DE SUBIDA DE NIVEL (CONFIESTAS)
    ===================================================================== */
 .levelup-overlay {
   align-items: center !important;
@@ -1486,6 +1444,7 @@ button, input, textarea, select {
   }
 }
 
+/* Efecto de rayos de sol rotativos de fondo */
 .levelup-sunburst {
   position: absolute;
   top: -120px;
@@ -1509,6 +1468,7 @@ button, input, textarea, select {
   }
 }
 
+/* Confeti flotante */
 .levelup-confetti-stage {
   position: absolute;
   inset: 0;
@@ -1713,4 +1673,135 @@ button, input, textarea, select {
   font-size: 14px;
   letter-spacing: 0.5px;
   box-shadow: 3px 3px 0px var(--red-deep);
+}
+
+
+/* =====================================================================
+   16. MEDIA QUERIES (TABLET Y ESCRITORIO)
+   ===================================================================== */
+
+/* Tablets y pantallas medianas (>= 640px) */
+@media (min-width: 640px) {
+  .masthead {
+    padding: 22px 28px 0;
+  }
+
+  .masthead-title {
+    font-size: 44px;
+  }
+
+  .front-page {
+    padding: 22px;
+    gap: 26px;
+  }
+
+  .headline-top {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .headline-actions {
+    align-self: flex-start;
+  }
+
+  .circulation {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .circulation-ticks {
+    flex: 1;
+  }
+
+  .prize-board-head {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .prize-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .board-slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .classifieds-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .sheet-overlay {
+    align-items: center;
+    padding: 20px;
+  }
+
+  .sheet {
+    max-width: 460px;
+    border-bottom: 1px solid var(--rule);
+    box-shadow: 5px 5px 0px var(--shadow-ink);
+    border-radius: 4px;
+    padding: 26px;
+  }
+
+  .sheet.sheet--lg {
+    max-width: 540px;
+  }
+
+  .bulletin-layer {
+    left: auto;
+    right: 26px;
+    bottom: 26px;
+    max-width: 360px;
+  }
+}
+
+/* Pantallas grandes y de escritorio (>= 1024px) */
+@media (min-width: 1024px) {
+  /* Distribución en 2 columnas: Índice a la izquierda, HUD a la derecha */
+  .broadsheet-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+  }
+
+  .index-column {
+    border-right: 1px solid var(--rule);
+    border-bottom: none;
+    padding: 22px 16px;
+    gap: 16px;
+  }
+
+  .index-list {
+    flex-direction: column;
+    overflow-x: visible;
+    padding-bottom: 0;
+  }
+
+  .clip {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .clip:hover {
+    transform: translate(-1px, -1px);
+  }
+
+  .front-page {
+    padding: 30px;
+  }
+
+  .prize-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .board-slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .classifieds-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 }
