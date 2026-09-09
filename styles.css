@@ -1445,3 +1445,272 @@ button, input, textarea, select {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
 }
+
+/* =====================================================================
+   11. MODAL CELEBRATORIO DE SUBIDA DE NIVEL (LEVEL UP)
+   ===================================================================== */
+.levelup-overlay {
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 16px !important;
+  background: rgba(18, 12, 6, 0.82) !important;
+  backdrop-filter: blur(5px);
+  z-index: 350 !important;
+}
+
+.levelup-modal {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  background: var(--paper-card);
+  border: 3px double var(--ink);
+  border-radius: var(--radius);
+  box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.6);
+  padding: 28px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  animation: levelUpPop 0.42s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes levelUpPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.levelup-sunburst {
+  position: absolute;
+  top: -120px;
+  left: -120px;
+  right: -120px;
+  bottom: -120px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.16;
+  background: repeating-conic-gradient(
+    from 0deg,
+    var(--ink) 0deg 15deg,
+    transparent 15deg 30deg
+  );
+  animation: spinSunburst 28s linear infinite;
+}
+
+@keyframes spinSunburst {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.levelup-confetti-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.confetti-scrap {
+  position: absolute;
+  width: 9px;
+  height: 12px;
+  background: var(--confetti-color, var(--gold));
+  border: 1px solid rgba(36, 28, 18, 0.4);
+  opacity: 0.9;
+  border-radius: 1px;
+  animation: confettiFall var(--dur, 2.4s) cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translate(var(--x-start), -20px) rotate(0deg) scale(0.6);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x-end), 500px) rotate(var(--rot, 720deg)) scale(1);
+    opacity: 0;
+  }
+}
+
+.levelup-frame {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px dashed var(--rule);
+  padding: 24px 14px 18px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.levelup-ribbon {
+  position: absolute;
+  top: -14px;
+  background: var(--red);
+  color: var(--paper-card);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  font-weight: 700;
+  padding: 5px 16px;
+  border: 1px solid var(--ink);
+  box-shadow: 2px 2px 0px var(--ink);
+  text-transform: uppercase;
+}
+
+.levelup-seal-wrap {
+  position: relative;
+  margin: 10px 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.levelup-seal {
+  font-size: 50px;
+  width: 88px;
+  height: 88px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  border: 3px double var(--ink);
+  border-radius: 50%;
+  box-shadow: 3px 3px 0px var(--rule);
+  animation: sealPulse 2s ease-in-out infinite alternate;
+}
+
+@keyframes sealPulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08) rotate(3deg); }
+}
+
+.levelup-badge-stamp {
+  position: absolute;
+  bottom: -6px;
+  right: -14px;
+  background: var(--gold);
+  color: var(--paper-card);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 4px 8px;
+  border: 1.5px solid var(--ink);
+  border-radius: 2px;
+  box-shadow: 2px 2px 0px var(--ink);
+  transform: rotate(-10deg);
+  animation: stampSlam 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.25s both;
+}
+
+@keyframes stampSlam {
+  0% {
+    opacity: 0;
+    transform: scale(2.6) rotate(20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(-10deg);
+  }
+}
+
+.levelup-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.levelup-kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink-soft);
+}
+
+.levelup-level-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  line-height: 1;
+}
+
+.levelup-lvl-text {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--red);
+}
+
+.levelup-number {
+  font-family: var(--font-display);
+  font-size: 74px;
+  font-weight: 700;
+  color: var(--ink);
+  text-shadow: 3px 3px 0px var(--paper-shade);
+  line-height: 0.9;
+}
+
+.levelup-section-name {
+  margin: 4px 0 0;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
+.levelup-reward {
+  width: 100%;
+  background: var(--paper);
+  border: 1px dashed var(--gold);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.levelup-reward-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.levelup-reward-detail {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.levelup-reward-icon {
+  font-size: 22px;
+}
+
+.btn--levelup {
+  width: 100%;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  box-shadow: 3px 3px 0px var(--red-deep);
+}

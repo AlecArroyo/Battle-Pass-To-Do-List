@@ -683,24 +683,67 @@ async function handleMoveMissionToSlot(passId, missionId, targetSlot){
 /* =====================================================================
    CELEBRACIONES Y BOLETINES
    ===================================================================== */
+function launchLevelUpConfetti(){
+  const container = document.getElementById('levelUpConfetti');
+  if(!container) return;
+  container.innerHTML = '';
+
+  const palette = ['#7c2430', '#9c6f22', '#3c5734', '#d8c495', '#241c12', '#f6efdd'];
+
+  for(let i = 0; i < 48; i++){
+    const scrap = document.createElement('span');
+    scrap.className = 'confetti-scrap';
+
+    const color = palette[Math.floor(Math.random() * palette.length)];
+    const xStart = Math.floor(Math.random() * 320) + 'px';
+    const xEnd = (Math.random() * 360 - 180) + 'px';
+    const dur = (1.8 + Math.random() * 1.4).toFixed(2) + 's';
+    const rot = (Math.random() * 900 - 450) + 'deg';
+    const delay = (Math.random() * 0.4).toFixed(2) + 's';
+
+    scrap.style.setProperty('--confetti-color', color);
+    scrap.style.setProperty('--x-start', xStart);
+    scrap.style.setProperty('--x-end', xEnd);
+    scrap.style.setProperty('--dur', dur);
+    scrap.style.setProperty('--rot', rot);
+    scrap.style.animationDelay = delay;
+
+    container.appendChild(scrap);
+  }
+}
+
 function celebrateLevelUp(pass){
-  const layer = document.getElementById('toastLayer');
-  const toast = document.createElement('div');
-  toast.className = 'bulletin';
-  toast.style.setProperty('--accent', pass.color);
-  toast.innerHTML = `
-    <span class="bulletin-icon">${pass.icon}</span>
-    <div>
-      <strong>Sube de nivel</strong>
-      <p>${escapeHtml(pass.name)} · Nivel ${pass.currentLevel}</p>
-    </div>
-  `;
-  layer.appendChild(toast);
-  requestAnimationFrame(() => toast.classList.add('is-visible'));
-  setTimeout(() => {
-    toast.classList.remove('is-visible');
-    setTimeout(() => toast.remove(), 350);
-  }, 3200);
+  const modal = document.getElementById('modalLevelUp');
+  if(!modal) return;
+
+  const iconEl = document.getElementById('levelUpIcon');
+  const numberEl = document.getElementById('levelUpNumber');
+  const nameEl = document.getElementById('levelUpPassName');
+  const rewardBox = document.getElementById('levelUpRewardBox');
+
+  if(iconEl) iconEl.textContent = pass.icon || '⭐';
+  if(numberEl) numberEl.textContent = pass.currentLevel;
+  if(nameEl) nameEl.textContent = pass.name;
+
+  const reward = (pass.rewards || []).find(r => r.level === pass.currentLevel);
+  if(rewardBox){
+    if(reward && reward.name){
+      rewardBox.innerHTML = `
+        <span class="levelup-reward-tag">Recompensa desbloqueada</span>
+        <div class="levelup-reward-detail">
+          <span class="levelup-reward-icon">${reward.icon || '🎁'}</span>
+          <strong>${escapeHtml(reward.name)}</strong>
+        </div>
+      `;
+      rewardBox.hidden = false;
+    } else {
+      rewardBox.hidden = true;
+      rewardBox.innerHTML = '';
+    }
+  }
+
+  modal.hidden = false;
+  launchLevelUpConfetti();
 }
 
 function celebrateRewardClaim(reward){
@@ -843,15 +886,24 @@ const modalMission = document.getElementById('modalMission');
 const formMission = document.getElementById('formMission');
 const modalReward = document.getElementById('modalReward');
 const formReward = document.getElementById('formReward');
+const modalLevelUp = document.getElementById('modalLevelUp');
 const inputMaxLevel = document.getElementById('inputMaxLevel');
 
 function closeModals(){
   modalPass.hidden = true;
   modalMission.hidden = true;
   modalReward.hidden = true;
+  if(modalLevelUp) modalLevelUp.hidden = true;
 }
 
 document.querySelectorAll('[data-close-modal]').forEach(btn => btn.addEventListener('click', closeModals));
+document.getElementById('btnDismissLevelUp')?.addEventListener('click', () => {
+  if(modalLevelUp) modalLevelUp.hidden = true;
+});
+modalLevelUp?.addEventListener('click', (e) => {
+  if(e.target === modalLevelUp) modalLevelUp.hidden = true;
+});
+
 document.getElementById('btnNewPass').addEventListener('click', () => openPassModal());
 
 function renderRewardsEditorList(){

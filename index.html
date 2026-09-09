@@ -241,6 +241,35 @@
     </form>
   </div>
 
+  <!-- Modal celebratorio de subida de nivel -->
+  <div class="sheet-overlay levelup-overlay" id="modalLevelUp" hidden>
+    <div class="levelup-modal" role="dialog" aria-modal="true">
+      <div class="levelup-sunburst"></div>
+      <div class="levelup-confetti-stage" id="levelUpConfetti"></div>
+      <div class="levelup-frame">
+        <div class="levelup-ribbon">¡EDICIÓN EXTRAORDINARIA!</div>
+        
+        <div class="levelup-seal-wrap">
+          <div class="levelup-seal" id="levelUpIcon">⭐</div>
+          <div class="levelup-badge-stamp">¡LOGRADO!</div>
+        </div>
+
+        <div class="levelup-heading">
+          <span class="levelup-kicker">Has alcanzado el</span>
+          <div class="levelup-level-display">
+            <span class="levelup-lvl-text">NIVEL</span>
+            <span class="levelup-number" id="levelUpNumber">1</span>
+          </div>
+          <p class="levelup-section-name" id="levelUpPassName"></p>
+        </div>
+
+        <div class="levelup-reward" id="levelUpRewardBox" hidden></div>
+
+        <button type="button" class="btn btn--primary btn--levelup" id="btnDismissLevelUp">¡Continuar la jornada!</button>
+      </div>
+    </div>
+  </div>
+
   <div class="bulletin-layer" id="toastLayer"></div>
 
   <script src="script.js"></script>
