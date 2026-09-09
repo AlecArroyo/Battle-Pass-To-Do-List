@@ -21,8 +21,11 @@ export function MissionCard({ mission, passColor, onComplete, onIncrement, onDel
                     </span>
                 )}
                 <span className="ad-tag">
-                    +{mission.starsValue}
-                    <span className="material-symbols-outlined">stars</span>
+                    <div className='pt-1'>
+                      {mission.starsValue}        
+                    </div>
+
+                    <span className="material-symbols-outlined ">stars</span>
                 </span>
             </div>
             {isDraggable && <span className="ad-grip" title="Arrastrar para ordenar">⋮⋮</span>}

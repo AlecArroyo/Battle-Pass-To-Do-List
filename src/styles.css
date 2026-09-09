@@ -1,3 +1,9 @@
+@import "tailwindcss";
+
+/* =====================================================================
+   ÍNDICE GENERAL DEL ARCHIVO CSS...
+   ===================================================================== */
+
 /* =====================================================================
    ÍNDICE GENERAL DEL ARCHIVO CSS:
    ---------------------------------------------------------------------
@@ -892,24 +898,24 @@ button, input, textarea, select {
 
 .ad-tag {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   color: var(--paper-card);
   background: var(--accent);
   padding: 4px 8px;
   border-radius: 4px;
-  letter-spacing: 0.5px;
+  letter-spacing: 3px;
   box-shadow: 1px 1px 0px var(--rule);
 
   /* 👇 AGREGA ESTO para que el texto y la estrella queden centrados */
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
 
 /* 👇 Y este tamaño para que la estrella no se desborde */
 .ad-tag .material-symbols-outlined {
-  font-size: 13px;
+  font-size: 20px;
   line-height: 1;
 }
 
