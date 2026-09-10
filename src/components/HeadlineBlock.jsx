@@ -1,9 +1,18 @@
 import React from 'react';
 
 export function HeadlineBlock({ pass, onEdit, onDelete }) {
-  const ticks = Array.from({ length: pass.starsPerLevel }, (_, i) => (
-    <span key={i} className={`tick ${i < pass.currentStars ? 'is-filled' : ''}`} />
-  ));
+  const ticks = Array.from({ length: pass.starsPerLevel }, (_, i) => {
+    const isFilled = i < pass.currentStars;
+    // 👇 Es el último tick conseguido (siempre que tengamos al menos 1 estrella)
+    const isLastFilled = pass.currentStars > 0 && i === pass.currentStars ;
+
+    return (
+      <span
+        key={i}
+        className={`tick ${isFilled ? 'is-filled' : ''} ${isLastFilled ? 'is-blinking' : ''}`}
+      />
+    );
+  });
 
   return (
     <section className="headline-block" style={{ '--accent': pass.color }}>
@@ -20,6 +29,7 @@ export function HeadlineBlock({ pass, onEdit, onDelete }) {
           <button type="button" className="btn btn--icon btn--danger" onClick={onDelete} title="Eliminar sección">🗑</button>
         </div>
       </div>
+      
       <div className="circulation">
         <span className="circulation-badge">Nivel {pass.currentLevel} de {pass.maxLevel}</span>
         <div className="circulation-ticks">{ticks}</div>

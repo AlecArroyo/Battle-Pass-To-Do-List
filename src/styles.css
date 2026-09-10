@@ -543,6 +543,14 @@ button, input, textarea, select {
   width: 100%;
 }
 
+.circulation-count {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--ink-soft);
+  align-self: flex-end;
+}
+
+
 .tick {
   flex: 1;
   height: 10px;
@@ -554,12 +562,37 @@ button, input, textarea, select {
   background: var(--accent);
 }
 
-.circulation-count {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--ink-soft);
-  align-self: flex-end;
+/* 👇 AGREGAR ESTO: Animación de parpadeo suave para el último tick */
+/* 👇 Casilla objetivo: parpadeo vivo con relleno y expansión */
+.tick.is-blinking {
+  position: relative;
+  z-index: 2;
+  border-color: var(--accent) !important;
+  animation: nextTickPulse 2s ease-in-out infinite alternate;
 }
+
+@keyframes nextTickPulse {
+  0% {
+    background-color: var(--paper);
+    transform: scaleY(1);
+    filter: brightness(1);
+    opacity: 0.8;
+  }
+  50% {
+    /* Se tiñe con el color de la sección y genera resplandor */
+    background-color: var(--accent);
+    filter: brightness(1.3);
+    transform: scaleY(1); /* 👈 Crece ligeramente hacia arriba y abajo */
+    opacity: 0.65;
+  }
+  100% {
+    background-color: var(--paper);
+    filter: brightness(1);
+    transform: scaleY(1);
+    opacity: 0.8;
+  }
+}
+
 
 
 /* =====================================================================
