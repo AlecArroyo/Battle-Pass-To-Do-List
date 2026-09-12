@@ -23,7 +23,7 @@ export function Masthead() {
   return (
     <header className="masthead">
       <div className="masthead-flag">
-        <h1 className="masthead-title">Hola <span className="accent">de Vida</span></h1>
+        <h1 className="masthead-title">Pases <span className="accent">de Vida</span></h1>
         <p className="masthead-tagline">Diario personal de hábitos, misiones y pequeñas victorias</p>
       </div>
       <div className="masthead-strip">
