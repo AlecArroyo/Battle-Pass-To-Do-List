@@ -19,6 +19,7 @@ export default function App() {
   const [activePassId, setActivePassId] = useState(null);
   const [carouselPage, setCarouselPage] = useState(1);
   const [toasts, setToasts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Modales
   const [passModalOpen, setPassModalOpen] = useState(false);
@@ -27,13 +28,18 @@ export default function App() {
   const [levelUpPass, setLevelUpPass] = useState(null);
 
   useEffect(() => {
-    storage.getBattlePasses().then((list) => {
-      setPasses(list);
-      if (list[0]) {
-        setActivePassId(list[0].id);
-        setCarouselPage(Math.ceil(list[0].currentLevel / 5) || 1);
-      }
-    });
+    setIsLoading(true);
+    storage.getBattlePasses()
+      .then((list) => {
+        setPasses(list);
+        if (list[0]) {
+          setActivePassId(list[0].id);
+          setCarouselPage(Math.ceil(list[0].currentLevel / 5) || 1);
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   const activePass = passes.find(p => p.id === activePassId);
@@ -133,7 +139,13 @@ export default function App() {
         />
 
         <main className="front-page">
-          {!activePass ? (
+          {isLoading ? (
+            <div className="loading-edition" aria-live="polite">
+              <div className="loading-spinner" aria-hidden="true" />
+              <h2>Cargando pase…</h2>
+              <p>Preparando la edición del día.</p>
+            </div>
+          ) : !activePass ? (
             <div className="no-edition">
               <p className="no-edition-mark">✦</p>
               <h2>Sin sección activa</h2>

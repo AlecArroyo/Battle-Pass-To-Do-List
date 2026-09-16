@@ -412,6 +412,7 @@ button, input, textarea, select {
 }
 
 /* Pantalla inicial cuando aún no se ha creado ninguna sección */
+.loading-edition,
 .no-edition {
   margin: 24px auto;
   text-align: center;
@@ -423,13 +424,23 @@ button, input, textarea, select {
   border-radius: var(--radius);
 }
 
-.no-edition-mark {
-  font-family: var(--font-display);
-  font-size: 32px;
-  color: var(--red);
-  margin: 0 0 10px;
+.loading-spinner {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 14px;
+  border: 2px solid rgba(36, 28, 18, 0.18);
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
 }
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-edition h2,
 .no-edition h2 {
   font-family: var(--font-display);
   font-size: 21px;
@@ -437,11 +448,19 @@ button, input, textarea, select {
   margin: 0 0 8px;
 }
 
+.loading-edition p,
 .no-edition p {
   font-size: 14px;
   line-height: 1.6;
   color: var(--ink-soft);
-  margin: 0 0 20px;
+  margin: 0;
+}
+
+.no-edition-mark {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--red);
+  margin: 0 0 10px;
 }
 
 
